@@ -29,9 +29,3 @@ match main_selected:
         page.Test()
     case 'STEM Ability Test Report':
         page.Report()
-
-        # test_selected = main_comp.test_menu()
-        #
-        # match test_selected:
-        #     case 0:
-        #         page.Perception()
