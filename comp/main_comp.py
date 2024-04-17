@@ -12,20 +12,19 @@ for item in abilities:
 
 def main_menu(identity):
     with st.sidebar:
-        match identity:
-            case 'teacher':
-                selected = sac.menu([
-                    sac.MenuItem('STEM Ability Test')
-                ], format_func='upper', size='sm')
-            case 'student':
-                selected = sac.menu([
-                    sac.MenuItem('Home'),
-                    sac.MenuItem('STEM Ability Test Report')
-                ], format_func='upper', size='sm')
-            case 'none':
-                selected = sac.menu([
-                    sac.MenuItem('Home')
-                ], format_func='upper', size='sm')
+        if identity == 'teacher':
+            selected = sac.menu([
+                sac.MenuItem('STEM Ability Test')
+            ], format_func='upper', size='sm', color="#7b2e76")
+        elif identity == 'student':
+            selected = sac.menu([
+                sac.MenuItem('Home1'),
+                sac.MenuItem('STEM Ability Test Report')
+            ], format_func='upper', size='sm', color="#7b2e76")
+        elif identity == 'none':
+            selected = sac.menu([
+                sac.MenuItem('Home2 ')
+            ], format_func='upper', size='sm', color="#7b2e76")
 
     return selected
 
@@ -43,6 +42,7 @@ def login():
     if "status" not in st.session_state:
         st.session_state.status = "Not logged in"
         st.session_state.notification = "Not logged in"
+        st.session_state.pswd = "None"
 
     if login_sta == 0 and st.session_state.status == "Not logged in":
         ID = st.sidebar.text_input('Name 姓名')
@@ -50,18 +50,21 @@ def login():
 
         st.sidebar.caption(st.session_state.notification)
 
-        if st.sidebar.button("LOG IN 登入", type="primary", use_container_width=True):
-            login_sta = 1
+        with st.sidebar:
+            if st.sidebar.button("LOG IN 登入", type="primary", use_container_width=True):
+                login_sta = 1
+
     else:
         user_show = "Hello，" + st.session_state.status
         st.sidebar.title(user_show)
+
         if st.sidebar.button("LOG OUT 登出", type="primary", use_container_width=True):
             st.session_state.status = "Not logged in"
             st.session_state.notification = "Not logged in"
             st.experimental_rerun()
 
     if login_sta:
-        st.session_state.status, st.session_state.notification = mysql_comp.mysql_login(ID, PSWD)
+        st.session_state.status, st.session_state.notification, st.session_state.pswd = mysql_comp.mysql_login(ID, PSWD)
         st.experimental_rerun()
 
-    return st.session_state.status
+    return st.session_state.status, st.session_state.pswd

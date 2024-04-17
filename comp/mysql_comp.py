@@ -1,3 +1,4 @@
+from datetime import date
 from streamlit_option_menu import option_menu
 import streamlit as st
 import pymysql
@@ -34,38 +35,55 @@ def mysql_data_read(col, table):
     return result
 
 
-def mysql_login(input_id, input_pswd):
+def mysql_save(sql, content):
+    conn = MYSQL_DB_POOL.connection()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute(sql, content)
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+
+def mysql_search(col, table, rA, A, rB, B):
+    conn = MYSQL_DB_POOL.connection()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    if col == '*':
+        column_part = '*'
+    else:
+        column_part = f"`{col}`"
+
+    sql = f"SELECT {column_part} FROM `{table}` WHERE `{rA}`=%s AND `{rB}`=%s"
+    cursor.execute(sql, (A, B))
+    result = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return result
+
+
+def mysql_login(input_name, input_pswd):
     rslt = "Not logged in"
-    result = mysql_data_read('*', 'account')
+    result = mysql_search('*', 'account', 'name', input_name, 'password', input_pswd)
 
-    id = []
-    password = []
-    name = []
+    if input_name == '':
+        rslt = "Not logged in"
+        noti = "Please enter name"
+        pswd = 'None'
+    elif input_name != '' and input_pswd == '':
+        rslt = "Not logged in"
+        noti = "Please enter password"
+        pswd = 'None'
+    elif result == ():
+        rslt = "Not logged in"
+        noti = "Error，please contact customer service"
+        pswd = 'None'
+    else:
+        rslt = result[0]['name']
+        noti = "Successful"
+        pswd = result[0]['password']
 
-    for i in range(len(result)):
-        id.append(result[i]['id'])
-        password.append(result[i]['password'])
-        name.append(result[i]['name'])
-
-    for j in range(len(result)):
-        if input_id == '':
-            rslt = "Not logged in"
-            noti = "Please enter name"
-            break
-        elif input_id != '' and input_pswd == '':
-            rslt = "Not logged in"
-            noti = "Please enter password"
-            break
-        elif id[j] == input_id and password[j] == input_pswd:
-            rslt = name[j]
-            noti = "Successful"
-            break
-        elif id[j] == input_id and password[j] != input_pswd:
-            rslt = "Not logged in"
-            noti = "Password error"
-            break
-        else:
-            rslt = "Not logged in"
-            noti = "Name not found，please contact customer service"
-
-    return rslt, noti
+    return rslt, noti, pswd
