@@ -12,20 +12,18 @@ for item in abilities:
 
 def main_menu(identity):
     with st.sidebar:
-        match identity:
-            case 'teacher':
-                selected = sac.menu([
-                    sac.MenuItem('STEM Ability Test')
-                ], format_func='upper', size='sm', color="#7b2e76")
-            case 'student':
-                selected = sac.menu([
-                    sac.MenuItem('Home'),
-                    sac.MenuItem('STEM Ability Test Report')
-                ], format_func='upper', size='sm', color="#7b2e76")
-            case 'none':
-                selected = sac.menu([
-                    sac.MenuItem('Home')
-                ], format_func='upper', size='sm', color="#7b2e76")
+        if identity == 'teacher':
+            selected = sac.menu([
+                sac.MenuItem('STEM Capability Test')
+            ], format_func='upper', size='sm', color="#7b2e76", open_all=True)
+        elif identity == 'student':
+            selected = sac.menu([
+                sac.MenuItem('STEM Capability Test Report')
+            ], format_func='upper', size='sm', color="#7b2e76", open_all=True)
+        elif identity == 'none':
+            selected = sac.menu([
+                sac.MenuItem('Home')
+            ], format_func='upper', size='sm', color="#7b2e76", open_all=True)
 
     return selected
 

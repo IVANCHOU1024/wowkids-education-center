@@ -9,16 +9,16 @@ from comp import mysql_comp
 abilities = ['Perception', 'Application', 'Innovation', 'Business Sense', 'Social Impact',
                  'Reasoning', 'Communication', 'Hands-On Skills', 'Experiment Design', 'Data Analysis']
 abilities_detail = [
-                    "Perseption\n洞察力",
-                    "Application\n应用",
-                    "Innovation\n创新",
-                    "Business sense\n商业",
-                    "Social impact\n社会影响力",
-                    "Reasoning\n推理思维",
-                    "Communication\n沟通艺术",
-                    "Hands On Skills\n操作技能",
-                    "Experiment Design\n实验设计",
-                    "Data Analysis\n数据分析"
+                    "Perseption 洞察力",
+                    "Application 应用",
+                    "Innovation 创新",
+                    "Business sense 商业",
+                    "Social impact 社会影响力",
+                    "Reasoning 推理思维",
+                    "Communication 沟通艺术",
+                    "Hands On Skills 操作技能",
+                    "Experiment Design 实验设计",
+                    "Data Analysis 数据分析"
                     ]
 interpretation = [
     'Able to accurately understand and operate the equipment demonstrated by the coach skillfully.\n能够准确理解并熟练操作老师展示的设备',
@@ -154,13 +154,9 @@ def Test():
 
 def Report(user, pswd):
     st.title('Report')
-    st.markdown('#### STEM Capability Assessment Form 科创综合能力评估表')
-    ch = st.columns(2)
-
-    print(user, pswd)
+    st.markdown('#### Creative Project Evaluation Form 科创综合能力评估表')
 
     result = mysql_comp.mysql_search('*', 'account', 'name', user, 'password', pswd)
-
 
     if result == ():
         st.markdown('#### No Data')
@@ -183,53 +179,95 @@ def Report(user, pswd):
                 data[0]['e_s'],
                 data[0]['d_s']
             ]
-            with ch[0]:
-                option = {
-                    "legend": {"data": ["full score", "actual score"]},
-                    "radar": {
-                        "indicator": [
-                            {"name": "Perseption\n洞察力", "max": 10},
-                            {"name": "Application\n应用", "max": 10},
-                            {"name": "Innovation\n创新", "max": 10},
-                            {"name": "Business sense\n商业", "max": 10},
-                            {"name": "Social impact\n社会影响力", "max": 10},
-                            {"name": "Reasoning\n推理思维", "max": 10},
-                            {"name": "Communication\n沟通艺术", "max": 10},
-                            {"name": "Hands On Skills\n操作技能", "max": 10},
-                            {"name": "Experiment Design\n实验设计", "max": 10},
-                            {"name": "Data Analysis\n数据分析", "max": 10}
-                        ]
-                    },
-                    "series": [
-                        {
-                            "name": "",
-                            "type": "radar",
-                            "color": "purple",
-                            "data": [{
-                                    "value": score
-                                }],
-                        }
-                    ],
-                }
-                st_echarts(option, height="400px")
-            with ch[1]:
-                score_data = {
-                    'Ability Evaluation 能力评估': abilities,
-                    'Full Score 满分': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-                    'Score 得分': score
-                }
-                score_df = pd.DataFrame(score_data)
-                print(score_df)
-                st.dataframe(score_df, use_container_width=True, hide_index=True, column_config=None)
+            record = [
+                data[0]['p_r'],
+                data[0]['a_r'],
+                data[0]['i_r'],
+                data[0]['b_r'],
+                data[0]['s_r'],
+                data[0]['r_r'],
+                data[0]['c_r'],
+                data[0]['h_r'],
+                data[0]['e_r'],
+                data[0]['d_r']
+            ]
 
-            for i in range(10):
-                ch = st.columns(3)
-                with ch[0]:
-                    st.markdown(f'#### {abilities[i]}')
-                with ch[1]:
-                    st.markdown(f'#### {interpretation[i]}')
-                with ch[2]:
-                    st.markdown(f'#### {score[i]}')
+            option = {
+                "legend": {"data": ["full score", "actual score"]},
+                "radar": {
+                    "indicator": [
+                        {"name": f"Perseption 洞察力: {score[0]}", "max": 10},
+                        {"name": f"Application 应用: {score[1]}", "max": 10},
+                        {"name": f"Innovation 创新: {score[2]}", "max": 10},
+                        {"name": f"Business sense 商业: {score[3]}", "max": 10},
+                        {"name": f"Social impact 社会影响力: {score[4]}", "max": 10},
+                        {"name": f"Reasoning 推理思维: {score[5]}", "max": 10},
+                        {"name": f"Communication 沟通艺术: {score[6]}", "max": 10},
+                        {"name": f"Hands On Skills 操作技能: {score[7]}", "max": 10},
+                        {"name": f"Experiment Design 实验设计: {score[8]}", "max": 10},
+                        {"name": f"Data Analysis 数据分析: {score[9]}", "max": 10}
+                    ]
+                },
+                "series": [
+                    {
+                        "name": "",
+                        "type": "radar",
+                        "color": "purple",
+                        "data": [{
+                                "value": score
+                            }],
+                    }
+                ],
+            }
+            st_echarts(option, height="400px")
+
+            #     score_data = {
+            #         'Ability Evaluation 能力评估': abilities,
+            #         'Full Score 满分': ['10', '10', '10', '10', '10', '10', '10', '10', '10', '10'],
+            #         'Score 得分': score
+            #     }
+            #     score_df = pd.DataFrame(score_data)
+            #     print(score_df)
+            #     st.dataframe(score_df, use_container_width=True, hide_index=True, column_config=None)
+
+            tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(abilities)
+            with tab1:
+                report_show(abilities_detail[0], interpretation[0], score[0], record[0])
+            with tab2:
+                report_show(abilities_detail[1], interpretation[1], score[1], record[1])
+            with tab3:
+                report_show(abilities_detail[2], interpretation[2], score[2], record[2])
+            with tab4:
+                report_show(abilities_detail[3], interpretation[3], score[3], record[3])
+            with tab5:
+                report_show(abilities_detail[4], interpretation[4], score[4], record[4])
+            with tab6:
+                report_show(abilities_detail[5], interpretation[5], score[5], record[5])
+            with tab7:
+                report_show(abilities_detail[6], interpretation[6], score[6], record[6])
+            with tab8:
+                report_show(abilities_detail[7], interpretation[7], score[7], record[7])
+            with tab9:
+                report_show(abilities_detail[8], interpretation[8], score[8], record[8])
+            with tab10:
+                report_show(abilities_detail[9], interpretation[9], score[9], record[9])
+
+
+                # ch = st.columns(3)
+                # with ch[0]:
+                #     st.markdown(f'### {abilities[i]}')
+                #     st.markdown(f'#### score:{score[i]}')
+                # with ch[1]:
+                #     st.markdown(f'###### {interpretation[i]}')
+                #
+                # st.divider()
+
+
+def report_show(p1, p2, p3, p4):
+    st.markdown(f'#### {p1}')
+    st.markdown(f'#### Score: {p3}')
+    st.markdown(f'#### Interpretation:\n{p2}')
+    st.markdown(f'#### Record:\n{p4}')
 
 
 def Perception():
