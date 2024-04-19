@@ -12,31 +12,38 @@ with st.sidebar:
     st.text('')
 
     user, pswd = main_comp.login()
-    st.sidebar.divider()
+    # st.sidebar.divider()
 
-    if user == 'Not logged in':
-        selected = sac.menu([
-            sac.MenuItem('Home')
-        ], format_func='upper', size='sm', color="#7b2e76")
-    elif user == 'teacher':
-        selected = sac.menu([
-            sac.MenuItem('STEM Capability Test')
-        ], format_func='upper', size='sm', color="#7b2e76")
-    else:
-        selected = sac.menu([
-            sac.MenuItem('STEM Capability Test Report')
-        ], format_func='upper', size='sm', color="#7b2e76")
+    # if user == 'Not logged in':
+    #     selected = sac.menu([
+    #         sac.MenuItem('Home')
+    #     ], format_func='upper', size='sm', color="#7b2e76")
+    # elif user == 'teacher':
+    #     selected = sac.menu([
+    #         sac.MenuItem('STEM Capability Test')
+    #     ], format_func='upper', size='sm', color="#7b2e76")
+    # else:
+    #     selected = sac.menu([
+    #         sac.MenuItem('STEM Capability Test Report')
+    #     ], format_func='upper', size='sm', color="#7b2e76")
 
 
 
 print(user)
 
-match selected:
-    case 'Home':
-        page.Home()
-    case 'STEM Capability Test':
-        page.Test()
-    case 'STEM Capability Test Report':
-        page.Report(user, pswd)
-    case 'Student register':
-        page.Register()
+# match selected:
+#     case 'Home':
+#         page.Home()
+#     case 'STEM Capability Test':
+#         page.Test()
+#     case 'STEM Capability Test Report':
+#         page.Report(user, pswd)
+#     case 'Student register':
+#         page.Register()
+
+if user == 'Not logged in':
+    page.Home()
+elif user == 'teacher':
+    page.Test()
+else:
+    page.Report(user, pswd)

@@ -98,6 +98,7 @@ def Register():
 
 
 def Test():
+    page()
     st.title('Test')
     st.markdown(f'## Student\'s information 学生信息')
     ch1 = st.columns(4)
