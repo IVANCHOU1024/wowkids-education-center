@@ -98,7 +98,6 @@ def Register():
 
 
 def Test():
-    Register()
     st.title('Test')
     st.markdown(f'## Student\'s information 学生信息')
     ch1 = st.columns(4)
@@ -110,6 +109,8 @@ def Test():
         school = st.text_input("School 学校")
     with ch1[3]:
         grade = st.number_input("Grade 年级", 0, 12, 6)
+
+    pswd = st.text_input("Password 密码 【EX：“探小星”（1月1日面试），密码设置“TXX0101”】", value='')
 
     st.divider()
 
@@ -195,7 +196,13 @@ def Test():
 
     date = time.strftime("%m%d", time.localtime())
 
-    sql = (
+    sql1 = (
+        "INSERT INTO account ("
+        "name, password, id, role) "
+        "VALUES (%s, %s, %s, %s)"
+    )
+
+    sql2 = (
         "INSERT INTO student_data ("
         "date, name, gender, school, grade, "
         "p_s, p_r, a_s, a_r, i_s, i_r, b_s, b_r, s_s, s_r, r_s, r_r, c_s, c_r, h_s, h_r, e_s, e_r, d_s, d_r, "
@@ -231,7 +238,8 @@ def Test():
         elif r10 == '':
             st.error(f"Please enter the record of \"{abilities[9]}\"")
         else:
-            mysql_comp.mysql_save(sql, (date, name, gender, school, grade,
+            mysql_comp.mysql_save(sql1, (name, pswd, date, 'student'))
+            mysql_comp.mysql_save(sql2, (date, name, gender, school, grade,
                                         s1, r1, s2, r2, s3, r3, s4, r4, s5, r5, s6, r6, s7, r7, s8, r8, s9, r9, s10,
                                         r10,
                                         examiner, total_score, class_level))
