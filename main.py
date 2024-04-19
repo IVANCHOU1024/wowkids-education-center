@@ -11,12 +11,9 @@ with st.sidebar:
              output_format='auto')
     st.text('')
 
-user, pswd = main_comp.login()
-st.sidebar.divider()
+    user, pswd = main_comp.login()
+    st.sidebar.divider()
 
-print(user)
-
-with st.sidebar():
     if user == 'Not logged in':
         selected = sac.menu([
             sac.MenuItem('Home')
@@ -30,6 +27,9 @@ with st.sidebar():
             sac.MenuItem('STEM Capability Test Report')
         ], format_func='upper', size='sm', color="#7b2e76")
 
+
+
+print(user)
 
 match selected:
     case 'Home':
