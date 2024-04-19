@@ -217,6 +217,8 @@ def Test():
             st.error("Please enter name")
         elif school == '':
             st.error("Please enter school")
+        elif pswd == '':
+            st.error("Please enter password")
         elif r1 == '':
             st.error(f"Please enter the record of \"{abilities[0]}\"")
         elif r2 == '':
