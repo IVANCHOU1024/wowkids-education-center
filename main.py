@@ -4,7 +4,7 @@ from comp import main_comp, page
 import streamlit_antd_components as sac
 
 
-st.set_page_config(page_title="Wowkids Education Center", page_icon=None, layout='wide', initial_sidebar_state='auto', menu_items=None)
+st.set_page_config(page_title="Wowkids Education Center", page_icon=None, layout='wide', initial_sidebar_state='expanded', menu_items=None)
 
 with st.sidebar:
     st.image('./pictures/logo.png', caption=None, width=None, use_column_width=True, clamp=False, channels='RGB',
@@ -35,3 +35,5 @@ match main_selected:
         page.Test()
     case 'STEM Capability Test Report':
         page.Report(user, pswd)
+    case 'Student register':
+        page.Register()

@@ -14,16 +14,17 @@ def main_menu(identity):
     with st.sidebar:
         if identity == 'teacher':
             selected = sac.menu([
+                sac.MenuItem('Student register'),
                 sac.MenuItem('STEM Capability Test')
-            ], format_func='upper', size='sm', color="#7b2e76", open_all=True)
+            ], format_func='upper', size='sm', color="#7b2e76")
         elif identity == 'student':
             selected = sac.menu([
                 sac.MenuItem('STEM Capability Test Report')
-            ], format_func='upper', size='sm', color="#7b2e76", open_all=True)
+            ], format_func='upper', size='sm', color="#7b2e76")
         elif identity == 'none':
             selected = sac.menu([
                 sac.MenuItem('Home')
-            ], format_func='upper', size='sm', color="#7b2e76", open_all=True)
+            ], format_func='upper', size='sm', color="#7b2e76")
 
     return selected
 
