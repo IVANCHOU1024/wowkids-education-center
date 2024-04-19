@@ -18,17 +18,20 @@ print(user)
 
 
 if user == 'Not logged in':
-    selected = sac.menu([
-        sac.MenuItem('Home')
-    ], format_func='upper', size='sm', color="#7b2e76")
+    with st.sidebar():
+        selected = sac.menu([
+            sac.MenuItem('Home')
+        ], format_func='upper', size='sm', color="#7b2e76")
 elif user == 'teacher':
-    selected = sac.menu([
-        sac.MenuItem('STEM Capability Test')
-    ], format_func='upper', size='sm', color="#7b2e76")
+    with st.sidebar():
+        selected = sac.menu([
+            sac.MenuItem('STEM Capability Test')
+        ], format_func='upper', size='sm', color="#7b2e76")
 else:
-    selected = sac.menu([
-        sac.MenuItem('STEM Capability Test Report')
-    ], format_func='upper', size='sm', color="#7b2e76")
+    with st.sidebar():
+        selected = sac.menu([
+            sac.MenuItem('STEM Capability Test Report')
+        ], format_func='upper', size='sm', color="#7b2e76")
 
 
 match selected:
