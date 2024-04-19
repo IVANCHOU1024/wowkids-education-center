@@ -18,21 +18,25 @@ print(user)
 
 
 if user == 'Not logged in':
-    identity = 'none'
+    selected = sac.menu([
+        sac.MenuItem('Home')
+    ], format_func='upper', size='sm', color="#7b2e76")
 elif user == 'teacher':
-    identity = 'teacher'
+    selected = sac.menu([
+        sac.MenuItem('STEM Capability Test')
+    ], format_func='upper', size='sm', color="#7b2e76")
 else:
-    identity = 'student'
+    selected = sac.menu([
+        sac.MenuItem('STEM Capability Test Report')
+    ], format_func='upper', size='sm', color="#7b2e76")
 
-print(identity)
 
-main_selected = main_comp.main_menu(identity)
-
-if main_selected == 'Home':
-    page.Home()
-elif main_selected == 'STEM Capability Test':
-    page.Test()
-elif main_selected == 'STEM Capability Test Report':
-    page.Report(user, pswd)
-elif main_selected == 'Student register':
-    page.Register()
+match selected:
+    case 'Home':
+        page.Home()
+    case 'STEM Capability Test':
+        page.Test()
+    case 'STEM Capability Test Report':
+        page.Report(user, pswd)
+    case 'Student register':
+        page.Register()
