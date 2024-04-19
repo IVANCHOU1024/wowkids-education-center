@@ -81,10 +81,12 @@ def Register():
         elif pswd == '':
             st.error("Please enter password")
         else:
-            st.warning('Save changes?')
-            if st.button("SURE", type="primary", use_container_width=True):
-                mysql_comp.mysql_save(sql, (name, pswd, date, 'student'))
-                st.success('Saved!')
+            mysql_comp.mysql_save(sql, (name, pswd, date, 'student'))
+            st.success('Saved!')
+            # st.warning('Save changes?')
+            # if st.button("SURE", type="primary", use_container_width=True):
+            #     mysql_comp.mysql_save(sql, (name, pswd, date, 'student'))
+            #     st.success('Saved!')
             # with my_modal.container():
             #     st.markdown('Are you sure you want to save？')
             #     st.button("SURE", key="confirm")
@@ -228,13 +230,19 @@ def Test():
         elif r10 == '':
             st.error(f"Please enter the record of \"{abilities[9]}\"")
         else:
-            st.warning('Save changes?')
-            if st.button("SURE", type="primary", use_container_width=True):
-                mysql_comp.mysql_save(sql, (date, name, gender, school, grade,
-                                            s1, r1, s2, r2, s3, r3, s4, r4, s5, r5, s6, r6, s7, r7, s8, r8, s9, r9, s10,
-                                            r10,
-                                            examiner, total_score, class_level))
-                st.success('Saved!')
+            mysql_comp.mysql_save(sql, (date, name, gender, school, grade,
+                                        s1, r1, s2, r2, s3, r3, s4, r4, s5, r5, s6, r6, s7, r7, s8, r8, s9, r9, s10,
+                                        r10,
+                                        examiner, total_score, class_level))
+            st.success('Saved!')
+
+            # st.warning('Save changes?')
+            # if st.button("SURE", type="primary", use_container_width=True):
+            #     mysql_comp.mysql_save(sql, (date, name, gender, school, grade,
+            #                                 s1, r1, s2, r2, s3, r3, s4, r4, s5, r5, s6, r6, s7, r7, s8, r8, s9, r9, s10,
+            #                                 r10,
+            #                                 examiner, total_score, class_level))
+            #     st.success('Saved!')
             # with my_modal.container():
             #     st.markdown('Are you sure you want to save？')
             #     st.button("SURE", key="confirm")
