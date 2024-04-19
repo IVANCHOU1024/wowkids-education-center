@@ -28,12 +28,11 @@ print(identity)
 
 main_selected = main_comp.main_menu(identity)
 
-match main_selected:
-    case 'Home':
-        page.Home()
-    case 'STEM Capability Test':
-        page.Test()
-    case 'STEM Capability Test Report':
-        page.Report(user, pswd)
-    case 'Student register':
-        page.Register()
+if main_selected == 'Home':
+    page.Home()
+elif main_selected == 'STEM Capability Test':
+    page.Test()
+elif main_selected == 'STEM Capability Test Report':
+    page.Report(user, pswd)
+elif main_selected == 'Student register':
+    page.Register()
