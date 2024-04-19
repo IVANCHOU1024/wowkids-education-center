@@ -16,19 +16,16 @@ st.sidebar.divider()
 
 print(user)
 
-
-if user == 'Not logged in':
-    with st.sidebar():
+with st.sidebar():
+    if user == 'Not logged in':
         selected = sac.menu([
             sac.MenuItem('Home')
         ], format_func='upper', size='sm', color="#7b2e76")
-elif user == 'teacher':
-    with st.sidebar():
+    elif user == 'teacher':
         selected = sac.menu([
             sac.MenuItem('STEM Capability Test')
         ], format_func='upper', size='sm', color="#7b2e76")
-else:
-    with st.sidebar():
+    else:
         selected = sac.menu([
             sac.MenuItem('STEM Capability Test Report')
         ], format_func='upper', size='sm', color="#7b2e76")
