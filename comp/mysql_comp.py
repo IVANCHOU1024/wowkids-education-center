@@ -13,11 +13,11 @@ MYSQL_DB_POOL = PooledDB(
     blocking=True,
     setsession=[],
     ping=0,
-    host='rm-uf6yh3m14z6il3lv8xo.mysql.rds.aliyuncs.com',
+    host='',
     port=3306,
-    user='astra',
-    password='Shoot4themoon',
-    database='astra',
+    user='',
+    password='',
+    database='',
     charset='utf8'
 )
 
